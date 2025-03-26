@@ -1,27 +1,47 @@
 let canvas, ctx, width, height, offsetX, offsetY, origin; // const
-let amplitude, signalElementLength, xPos, yPos, encodingType;
+let amplitude, signalElementLength, xPos, yPos, encodingType, bitStream;
 
 // initialize canvas
 export function initCanvas(canvas) {
     encodingType = localStorage.getItem("encodingType");
     ctx = canvas.getContext("2d");
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
     width = canvas.width;
     height = canvas.height;
-    (offsetX = 20), (offsetY = 20);
+    (offsetX = width*0.02), (offsetY = offsetX);
     origin = [offsetX * 2, height / 2]; // [x,y]
-    amplitude = 75;
+    amplitude = 95;
     signalElementLength = 75;
     (xPos = 0), (yPos = 0);
+    ctx.globalAlpha = 1.0; // Reset opacity for other drawings
 }
+
+
+// CUSTOM FUNCTIONS FOR EFFICIENCY -> WILL BE USED IN THE REST OF CODE
+// moves ctx to x,y and updates local variables
+export function myMoveTo(x, y) {
+    ctx.moveTo(x, y);
+    xPos = x;
+    yPos = y;
+}
+// draws line from xpos,ypos to x,y, moves xpos,ypos & updates local variables
+export function myLineTo(x, y) {
+    ctx.lineTo(x, y);
+    myMoveTo(x, y);
+}
+
+
 
 // draw x and y axes
 export function drawAxes() {
+    // setup
     ctx.strokeStyle = "black";
     ctx.fillStyle = "black";
-    ctx.font = "14px Arial";
-    // graph setup
+    ctx.font = "18px Arial";
     ctx.beginPath();
     ctx.fillText("o", offsetX + 10, height / 2 + 10);
+
     // x axis
     myMoveTo(offsetX, height / 2);
     myLineTo(width - offsetX, height / 2);
@@ -36,6 +56,27 @@ export function drawAxes() {
     ctx.stroke();
 }
 
+
+// draw bit grid
+export function drawGrid() {
+    ctx.beginPath();
+    myMoveTo(origin[0], height/2);
+    ctx.setLineDash([5,5]); // for making grid lines dashed
+
+    // draw gridlines bitwise
+    for (let i = 0; i < bitStream.length; i++) {
+        ctx.fillText(bitStream[i], xPos + signalElementLength/2, height/4 - 20)
+        myMoveTo(xPos + signalElementLength, height/8);
+        myLineTo(xPos, height*7/8);
+    }
+
+    // stroke grid and reset dashed line -> solid line
+    ctx.stroke();
+    ctx.setLineDash([]);
+    myMoveTo(origin[0], origin[1]);
+}
+
+
 // draw high amplitude
 export function drawHigh() {
     myLineTo(xPos, height / 2 - amplitude);
@@ -43,12 +84,14 @@ export function drawHigh() {
     yPos = height / 2 - amplitude; // bring yPos back to x-axis (0 amplitude)
 }
 
+
 // draw low amplitude
 export function drawLow() {
     myLineTo(xPos, height / 2 + amplitude);
     myLineTo(xPos + signalElementLength, height / 2 + amplitude);
     yPos = height / 2 + amplitude; // bring yPos back to x-axis (0 amplitude)
 }
+
 
 // draw zero amplitude
 export function drawZero() {
@@ -70,6 +113,7 @@ export function drawZero() {
     }
 }
 
+
 // continue previous level
 export function drawPrevLevel() {
     let prevLevel;
@@ -80,6 +124,7 @@ export function drawPrevLevel() {
 
     myLineTo(xPos + signalElementLength, yPos);
 }
+
 
 // validate user input
 export function validate(event) {
@@ -93,16 +138,17 @@ export function validate(event) {
     return true;
 }
 
+
 // encoding logic
-export function updateUI(event) {
-    event.preventDefault();
+export function updateUI(stream) {
 
     // reset canvas
     ctx.clearRect(0, 0, width, height);
     drawAxes();
-
+    
     // prepare simulation
-    const bitStream = document.getElementById("bitStream").value;
+    bitStream = stream;
+    drawGrid();
     ctx.beginPath();
     ctx.strokeStyle = "blue";
     myMoveTo(origin[0], origin[1]);
@@ -202,17 +248,4 @@ export function updateUI(event) {
     ctx.stroke();
 
     return true;
-}
-
-// moves ctx to x,y and updates local variables
-export function myMoveTo(x, y) {
-    ctx.moveTo(x, y);
-    xPos = x;
-    yPos = y;
-}
-
-// draws line from xpos,ypos to x,y, moves xpos,ypos & updates local variables
-export function myLineTo(x, y) {
-    ctx.lineTo(x, y);
-    myMoveTo(x, y);
 }

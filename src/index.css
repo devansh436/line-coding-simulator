@@ -1,9 +1,42 @@
-body, html{
+* {
+    margin: 0;
+    padding: 0;
+}
+body, html {
     margin: 0;
     padding: 0;
 }
 
-root {
-    height: 100%;
-    
+/* Base button styles */
+.btn {
+    /* font-size: 1.2rem !important; */
+    transition: transform 0.2s ease !important;
+    transform-origin: center !important;
 }
+
+/* Hover effect */
+.btn:hover {
+    transform: scale(1.05) !important;
+}
+
+
+/* Gradient backgrounds */
+.btn-primary {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+}
+.btn-secondary {
+    background: linear-gradient(135deg, #6c757d, #495057);
+}
+.btn-info {
+    background: linear-gradient(135deg, #17a2b8, #138496);
+}
+.btn-success {
+    background: linear-gradient(135deg, #28a745, #1e7e34);
+}
+.btn-danger {
+    background: linear-gradient(135deg, #dc3545, #b21f2d);
+}
+.btn-warning {
+    background: linear-gradient(135deg, #ffd558, #fcc111);
+}
+
