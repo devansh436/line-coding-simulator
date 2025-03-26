@@ -5,17 +5,26 @@ function Home() {
     localStorage.setItem('encodingType', element.target.id);
   }
 
+  const gradients = [
+    "linear-gradient(145deg, rgb(6, 58, 39), rgb(11, 160, 113))",
+    "linear-gradient(145deg, rgb(4, 20, 53), rgb(11, 62, 123))",
+    "linear-gradient(145deg, rgb(20, 20, 50), rgb(60, 60, 150))",
+    "linear-gradient(145deg, rgb(30, 60, 30), rgb(70, 160, 90))",
+    "linear-gradient(145deg, rgb(80, 20, 20), rgb(180, 50, 50))",
+    "linear-gradient(145deg, rgb(110, 80, 20), rgb(240, 180, 60))"
+  ];
+
   return (
-    <div data-bs-theme="dark" className="bg-dark pb-4" style={{ width: "99vw",height: "100%" }}>
+    <div data-bs-theme="dark" className="bg-dark pb-4" style={{ width: "99vw", height: "100%" }}>
       {/* Title Section */}
-      <div id="title" className="pt-4 pb-2 text-center" style={{ background: "linear-gradient(135deg,rgb(47, 203, 146),rgb(9, 120, 85))", borderRadius: "0 0 30px 30px" }}>
+      <div id="title" className="pt-4 pb-2 text-center" style={{ background: "linear-gradient(0deg,rgb(6, 58, 39),rgb(11, 160, 113))" }}>
         <h1 className="text-warning display-4">Line Coding Schemes Simulation</h1>
-        <p className="fw-light text-white fs-5  ">Explore various encoding techniques used in digital communication</p>
+        <p className="fw-light text-white fs-5">Explore various encoding techniques used in digital communication</p>
       </div>
 
       {/* Introduction Card */}
       <div className="container mt-5">
-        <div className="card p-4 border-0 shadow-lg" style={{ background: "rgb(30, 40, 60)", color: "#fff" }}>
+        <div className="card p-4 border-0 shadow-lg" style={{ background: "linear-gradient(0deg,rgb(4, 20, 53),rgb(11, 62, 123))", color: "#fff" }}>
           <div className="text-center text-warning mb-4 fs-2 fw-light">Introduction to Line Encoding</div>
           <p>
             Line encoding schemes are methods used to represent digital data using specific voltage patterns for transmission. They ensure
@@ -38,10 +47,10 @@ function Home() {
         {["NRZ-I", "NRZ-L", "RZ", "Manchester", "AMI", "MLT-3"].map((type, index) => (
           <Link key={type}
             id={type}
-            className={`btn btn-lg px-5 py-3 fw-semibold text-white`}
+            className="btn btn-lg px-5 py-3 fw-semibold text-white border-0"
             to="/simulation"
             onClick={setEncodingType}
-            style={{ backgroundColor: ["#007bff", "#6c757d", "#17a2b8", "#28a745", "#dc3545", "#ffc107"][index] }}
+            style={{ background: gradients[index], boxShadow: "0 4px 15px rgba(0, 0, 0, 0.4)" }}
           >
             {type}
           </Link>

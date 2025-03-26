@@ -20,23 +20,3 @@ body, html {
 }
 
 
-/* Gradient backgrounds */
-.btn-primary {
-    background: linear-gradient(135deg, #007bff, #0056b3);
-}
-.btn-secondary {
-    background: linear-gradient(135deg, #6c757d, #495057);
-}
-.btn-info {
-    background: linear-gradient(135deg, #17a2b8, #138496);
-}
-.btn-success {
-    background: linear-gradient(135deg, #28a745, #1e7e34);
-}
-.btn-danger {
-    background: linear-gradient(135deg, #dc3545, #b21f2d);
-}
-.btn-warning {
-    background: linear-gradient(135deg, #ffd558, #fcc111);
-}
-

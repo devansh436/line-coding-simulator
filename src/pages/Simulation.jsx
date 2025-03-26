@@ -48,8 +48,8 @@ function Simulation() {
             <label htmlFor="bitStream" className="text-white form-label">Bitstream:</label>
             <div className="d-flex gap-2 flex-wrap">
                 <input type="text"  className="form-control" placeholder={`e.g. ${defaultBitStream}`} id="bitStream" autoComplete="off"/>
-                <button type="submit"  className="btn btn-sm border border-1 btn-success fs-6 py-2 px-3">Simulate</button>
-                <button type="submit"  onClick={randomBitStream} className="btn btn-sm border border-1 btn-danger fs-6 py-2 px-3">Random</button>
+                <button type="submit" style={{borderRadius: "0.8rem", fontSize:'0.9rem'}} className="btn btn-sm border border-1 btn-outline-success py-1 px-3 my-1">Simulate</button>
+                <button type="submit" style={{borderRadius: "0.8rem", fontSize:'0.9rem'}} onClick={randomBitStream} className="btn btn-sm border border-1 btn-outline-danger py-1 px-3 my-1">Random</button>
             </div>
         </form>
 
