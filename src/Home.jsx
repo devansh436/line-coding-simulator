@@ -61,20 +61,27 @@ function Home() {
       <div className="text-light text-center mt-5 fs-3 fw-bold">
         Explore Encoding Techniques
       </div>
-      <div className="mt-4  d-flex gap-4 justify-content-center">
-        <Link id="NRZ" className="btn btn-outline-primary btn-lg shadow-sm" to="/simulation" onClick={setEncodingType} >
-          NRZ
-        </Link>
-        <Link id="Manchester" className="btn btn-outline-success btn-lg shadow-sm" to="/simulation" onClick={setEncodingType} >
-          Manchester
-        </Link>
-        <Link id="AMI" className="btn btn-outline-danger btn-lg shadow-sm" to="/simulation" onClick={setEncodingType} >
-          AMI
-        </Link>
-        <Link id="MLT-3" className="btn btn-outline-warning btn-lg shadow-sm" to="/simulation" onClick={setEncodingType} >
-          MLT-3
-        </Link>
-      </div>
+      <div className="mt-4 d-flex gap-4 justify-content-center">
+      <Link id="NRZ-I" className="btn btn-primary btn-lg" to="/simulation" onClick={setEncodingType}>
+        NRZ-I
+      </Link>
+      <Link id="NRZ-L" className="btn btn-secondary btn-lg" to="/simulation" onClick={setEncodingType}>
+        NRZ-L
+      </Link>
+      <Link id="RZ" className="btn btn-info btn-lg" to="/simulation" onClick={setEncodingType}>
+        RZ
+      </Link>
+      <Link id="Manchester" className="btn btn-success btn-lg" to="/simulation" onClick={setEncodingType}>
+        Manchester
+      </Link>
+      <Link id="AMI" className="btn btn-danger btn-lg" to="/simulation" onClick={setEncodingType}>
+        AMI
+      </Link>
+      <Link id="MLT-3" className="btn btn-warning btn-lg" to="/simulation" onClick={setEncodingType}>
+        MLT-3
+      </Link>
+</div>
+
     </div>
   );
 }

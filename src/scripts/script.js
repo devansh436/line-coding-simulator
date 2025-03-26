@@ -1,5 +1,5 @@
 let canvas, ctx, width, height, offsetX, offsetY, origin; // const
-let voltage, xPos, yPos, encodingType;
+let amplitude, signalElementLength, xPos, yPos, encodingType;
 
 // initialize canvas
 export function initCanvas(canvas) {
@@ -9,7 +9,8 @@ export function initCanvas(canvas) {
     height = canvas.height;
     (offsetX = 20), (offsetY = 20);
     origin = [offsetX * 2, height / 2]; // [x,y]
-    voltage = 75;
+    amplitude = 75;
+    signalElementLength = 75;
     (xPos = 0), (yPos = 0);
 }
 
@@ -35,44 +36,50 @@ export function drawAxes() {
     ctx.stroke();
 }
 
-// draw high voltage
+// draw high amplitude
 export function drawHigh() {
-    myLineTo(xPos, height / 2 - voltage);
-    myLineTo(xPos + voltage, height / 2 - voltage);
-    yPos = height / 2 - voltage; // bring yPos back to x-axis (0 voltage)
+    myLineTo(xPos, height / 2 - amplitude);
+    myLineTo(xPos + signalElementLength, height / 2 - amplitude);
+    yPos = height / 2 - amplitude; // bring yPos back to x-axis (0 amplitude)
 }
 
-// draw low voltage
+// draw low amplitude
 export function drawLow() {
-    myLineTo(xPos, height / 2 + voltage);
-    myLineTo(xPos + voltage, height / 2 + voltage);
-    yPos = height / 2 + voltage; // bring yPos back to x-axis (0 voltage)
+    myLineTo(xPos, height / 2 + amplitude);
+    myLineTo(xPos + signalElementLength, height / 2 + amplitude);
+    yPos = height / 2 + amplitude; // bring yPos back to x-axis (0 amplitude)
 }
 
-// draw zero voltage
+// draw zero amplitude
 export function drawZero() {
-    // current voltage is high
+    // current amplitude is high
     if (yPos < height / 2) {
         myLineTo(xPos, height / 2); // Go halfway to zero
-        myLineTo(xPos + voltage, height / 2); // Return to zero
+        myLineTo(xPos + signalElementLength, height / 2); // Return to zero
         yPos = height / 2; // Update yPos to zero
     }
-    // current voltage is low
+    // current amplitude is low
     else if (yPos > height / 2) {
         myLineTo(xPos, height/2); // Go halfway to zero
-        myLineTo(xPos + voltage, height / 2); // Return to zero
+        myLineTo(xPos + signalElementLength, height / 2); // Return to zero
         yPos = height / 2; // Update yPos to zero
     }
     // already at zero
     else {
-        myLineTo(xPos + voltage, yPos); // Continue on zero line
+        myLineTo(xPos + signalElementLength, yPos); // Continue on zero line
     }
 }
 
 // continue previous level
-// export function drawPrevLevel() {
+export function drawPrevLevel() {
+    let prevLevel;
 
-// }
+    if (yPos == height/2) prevLevel = 0;
+    else if (yPos > height/2) prevLevel = -1;
+    else prevLevel = 1;
+
+    myLineTo(xPos + signalElementLength, yPos);
+}
 
 // validate user input
 export function validate(event) {
@@ -100,11 +107,12 @@ export function updateUI(event) {
     ctx.strokeStyle = "blue";
     myMoveTo(origin[0], origin[1]);
     
-    let prevNonZeroPositive = false;
-  
+    let prevNonZeroPositive = true;
+    // let prevLevel = 0;
+    
     // encoding logic based on type
     switch (encodingType) {
-        case "NRZ":
+        case "NRZ-L":
             for (let i = 0; i < bitStream.length; i++) {
                 if (bitStream[i] === "1") {
                     drawHigh();
@@ -113,14 +121,52 @@ export function updateUI(event) {
                 }
             }
         break;
-
-        case "Manchester":
             
+        case "NRZ-I":
+            // prev level assumed => HIGH voltage
+            myMoveTo(xPos, yPos + amplitude);
+
+            for (let i = 0; i < bitStream.length; i++) {
+                if (bitStream[i] === "1") {
+                    prevNonZeroPositive ? drawLow() : drawHigh();
+                    prevNonZeroPositive = !prevNonZeroPositive;
+                } else {
+                    drawPrevLevel();
+                }
+            }
+        break;
+            
+        case "RZ":
+            signalElementLength /= 2;
+            for (let i = 0; i < bitStream.length; i++) {
+                if (bitStream[i] === "1") {
+                    drawHigh();
+                    drawZero();
+                } else {
+                    drawLow();
+                    drawZero();
+                }
+            }
+            signalElementLength *= 2;
+        break;
+            
+        case "Manchester":
+            signalElementLength /= 2;
+            for (let i = 0; i < bitStream.length; i++) {
+                if (bitStream[i] === "1") {
+                    drawLow();
+                    drawHigh();
+                } else {
+                    drawHigh();
+                    drawLow();
+                }
+            }
+            signalElementLength *= 2;
         break;
 
         case "AMI":
             for (let i = 0; i < bitStream.length; i++) {
-                // assume last non-zero voltage to be negative
+                // assume last non-zero amplitude to be negative
                 if (bitStream[i] === "1") {
                     prevNonZeroPositive ? drawLow() : drawHigh();
                     prevNonZeroPositive = !prevNonZeroPositive;
@@ -132,7 +178,7 @@ export function updateUI(event) {
 
         case "MLT-3":
           for (let i = 0; i < bitStream.length; i++) {
-            // assume last non-zero voltage to be negative 
+            // assume last non-zero amplitude to be negative 
             if (bitStream[i] === "1") {
                 let currLevelZero = (yPos == height/2);
 
@@ -144,7 +190,7 @@ export function updateUI(event) {
                 }
             } else {
                 // drawPrevLevel();
-                myLineTo(xPos + voltage, yPos);
+                myLineTo(xPos + signalElementLength, yPos);
             }
         }  
         break;

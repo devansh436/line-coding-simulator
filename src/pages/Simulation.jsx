@@ -53,7 +53,7 @@ function Simulation() {
             <canvas id="canvasDiv" className="p-3 bg-light border border-1" width="1000" height="400"></canvas>
         </div>
         <div className="text-center text-white mt-2 fs-6 bg-dark">Digitized bitstream</div>
-        <div id="desc" className="px-5 py-3 text-break text-white bg-dark"> {descriptions[encodingType]} </div>
+        <div id="desc" className="px-5 py-3 text-break text-white bg-dark" dangerouslySetInnerHTML={{__html: descriptions[encodingType]}}></div>
     </div>
     )
 }
