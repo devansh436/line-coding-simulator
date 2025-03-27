@@ -7,16 +7,17 @@ body, html {
     padding: 0;
 }
 
-/* Base button styles */
 .btn {
-    /* font-size: 1.2rem !important; */
     transition: transform 0.2s ease !important;
     transform-origin: center !important;
 }
 
-/* Hover effect */
 .btn:hover {
     transform: scale(1.05) !important;
 }
 
-
+.no-transition,
+.no-transition:hover {
+    transition: none !important;
+    transform: none !important;
+}

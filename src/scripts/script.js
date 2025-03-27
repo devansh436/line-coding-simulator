@@ -1,5 +1,6 @@
+const defaultBitStream = '10101110011';
 let canvas, ctx, width, height, offsetX, offsetY, origin; // const
-let amplitude, signalElementLength, xPos, yPos, encodingType, bitStream;
+let amplitude, signalElementLength, xPos, yPos, encodingType, bitStream = defaultBitStream;
 
 // initialize canvas
 export function initCanvas(canvas) {
@@ -11,9 +12,9 @@ export function initCanvas(canvas) {
     height = canvas.height;
     (offsetX = width*0.02), (offsetY = offsetX);
     origin = [offsetX * 2, height / 2]; // [x,y]
-    amplitude = 95;
-    signalElementLength = 75;
-    (xPos = 0), (yPos = 0);
+    amplitude = height/4;
+    signalElementLength = amplitude*3/4;
+    (xPos = origin[0]), (yPos = [origin[1]]);
     ctx.globalAlpha = 1.0; // Reset opacity for other drawings
 }
 
@@ -38,7 +39,7 @@ export function drawAxes() {
     // setup
     ctx.strokeStyle = "black";
     ctx.fillStyle = "black";
-    ctx.font = "18px Arial";
+    ctx.font = `${width/60}px Arial`;
     ctx.beginPath();
     ctx.fillText("o", offsetX + 10, height / 2 + 10);
 
@@ -127,21 +128,25 @@ export function drawPrevLevel() {
 
 
 // validate user input
-export function validate(event) {
-    const regex = /[0-1]+$/;
-    const bitStream = document.getElementById("bitStream").value;
+export function validate() {
+    const inputField = document.getElementById("bitStream");
+    if (inputField.value === "") return false;
+    bitStream = inputField.value // Trim spaces
 
-    if (!regex.test(bitStream)) {
-        alert("Bitstream must only contain 0s and 1s.");
-        return false;
-    }
+    for (let i = 0; i < bitStream.length; i++) {
+        if (bitStream[i] !== '0' && bitStream[i] !== '1') {
+            return false;
+        }
+    }    
+
     return true;
 }
 
 
+
 // encoding logic
 export function updateUI(stream) {
-
+    validate();
     // reset canvas
     ctx.clearRect(0, 0, width, height);
     drawAxes();

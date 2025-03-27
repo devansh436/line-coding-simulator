@@ -6,13 +6,14 @@ function Home() {
   }
 
   const gradients = [
-    "linear-gradient(145deg, rgb(6, 58, 39), rgb(11, 160, 113))",
-    "linear-gradient(145deg, rgb(4, 20, 53), rgb(11, 62, 123))",
-    "linear-gradient(145deg, rgb(20, 20, 50), rgb(60, 60, 150))",
-    "linear-gradient(145deg, rgb(30, 60, 30), rgb(70, 160, 90))",
-    "linear-gradient(145deg, rgb(80, 20, 20), rgb(180, 50, 50))",
-    "linear-gradient(145deg, rgb(110, 80, 20), rgb(240, 180, 60))"
-  ];
+  "linear-gradient(0deg, rgb(10, 78, 55), rgb(20, 180, 135))",
+  "linear-gradient(0deg, rgb(10, 35, 80), rgb(25, 90, 150))",
+  "linear-gradient(0deg, rgb(40, 40, 80), rgb(80, 80, 170))",
+  "linear-gradient(0deg, rgb(50, 90, 50), rgb(90, 180, 110))",
+  "linear-gradient(0deg, rgb(120, 40, 40), rgb(200, 70, 70))",
+  "linear-gradient(0deg, rgb(140, 100, 40), rgb(250, 200, 80))"
+];
+
 
   return (
     <div data-bs-theme="dark" className="bg-dark pb-4" style={{ width: "99vw", height: "100%" }}>
@@ -42,7 +43,7 @@ function Home() {
       </div>
 
       {/* Explore Section */}
-      <div className="text-light text-center mt-5 fs-2 fw-bold">Explore Encoding Techniques</div>
+      <div className="text-warning text-center mt-5 fs-2 fw-light">Explore Encoding Techniques</div>
       <div className="mt-4 d-flex gap-4 justify-content-center flex-wrap">
         {["NRZ-I", "NRZ-L", "RZ", "Manchester", "AMI", "MLT-3"].map((type, index) => (
           <Link key={type}
