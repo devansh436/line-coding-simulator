@@ -3,6 +3,6 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/line-coding-simulator/',
+  base: "/line-coding-simulator/",
   plugins: [react()],
 })
