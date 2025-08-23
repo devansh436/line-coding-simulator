@@ -10,8 +10,7 @@ function Footer() {
     >
       &#169; Made with <span style={{ color: "#ff4d6d" }}>&hearts;</span> by
       <br />
-      <strong>Devansh Deshpande</strong> (23BCE056) <br />
-      <strong>Sahil Chandel</strong> (23BCE041)
+      <strong>Devansh Deshpande</strong> (23BCE056)
     </footer>
   );
 }
