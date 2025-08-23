@@ -1,0 +1,33 @@
+!! You can directly visit my hosted website without extracting zip file !!
+Use this link:
+http://devansh436.github.io/line-coding-simulator
+
+OR
+
+Download Locally
+
+Setup Instructions:
+
+S1. Extract the ZIP  
+Unzip the provided project folder to any convenient location on your PC.
+
+S2. Install Node.js  
+Download and install Node.js from: https://nodejs.org  
+(Recommended: LTS version)
+
+S3. Open Terminal / Command Prompt  
+Navigate to the extracted project directory using the terminal:  
+cd path/to/project-folder
+
+S4. Install dependencies  
+Run:  
+npm install
+
+S5. Start the development server  
+Run:  
+npm run dev
+
+S6. Open in Browser  
+After the server starts, it will display a local URL like:  
+http://localhost:5173/  
+Open this link in your browser to use the simulator.
