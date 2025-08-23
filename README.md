@@ -1,6 +1,7 @@
 # Line Coding Schemes Simulator
 
 Explore and visualize different line coding schemes used in digital communication with this interactive web simulator.
+Link: https://devansh436.github.io/line-coding-simulator/
 
 ## 🚀 Features
 - Visual representation of Unipolar, Polar, Bipolar, and Manchester encoding.
