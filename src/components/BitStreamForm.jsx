@@ -7,43 +7,45 @@ function BitStreamForm({
 }) {
   return (
     <div
-      className="mt-5 px-4 py-3 rounded border"
+      className="mt-5 px-4 d-flex flex-column justify-content-center align-items-center rounded border"
       style={{
         backgroundColor: "#1D2A38",
         borderColor: "#6C757D",
-        width: "40vw",
-        height: "23vh",
-        minHeight:"175px"
       }}
     >
       <form onSubmit={handleSubmit}>
-        <label htmlFor="bitStream" className="text-info form-label fs-5 fw-semibold w-100 text-center mb-3">
+        <label
+          htmlFor="bitStream"
+          className="text-info form-label fs-3 fw-semibold w-100 text-center mb-3"
+        >
           Bitstream
         </label>
+        <div className="text-light pb-1">
+          Enter a stream of bits:
+        </div>
         <input
           type="text"
-          className="form-control text-white"
+          className="form-control text-white mb-3"
           placeholder={`e.g. ${defaultBitStream}`}
           id="bitStream"
           autoComplete="off"
           style={{
             backgroundColor: "#3B4754",
             borderColor: "#6C757D",
+            width: "550px",
+            height: "3vw",
           }}
         />
 
-        <div className="d-flex mt-2">
+        <div className="d-flex">
           <div className="d-flex flex-column w-100">
             {/* invalid input alert */}
-            <div
-              className={`alert alert-danger py-2 ${
-                validStream ? "d-none" : ""
-              }`}
-            >Invalid input.
+            <div className={`alert alert-danger py-2 ${ validStream ? "d-none" : ""}`}>
+              Invalid input.
             </div>
 
             {/* Submit Buttons */}
-            <div className="d-flex gap-3 mt-2 ">
+            <div className="d-flex gap-3">
               {/* Simulate */}
               <button
                 type="submit"

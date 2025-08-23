@@ -17,7 +17,7 @@ function DetailBox({ encodingType, bitStream }) {
         borderRadius: "0.8rem",
       }}
     >
-      <div className="text-info mb-3 text-center fs-5 fw-semibold">Signal Characteristics</div>
+      <div className="text-info mb-3 text-center fs-3 fw-semibold">Signal Characteristics</div>
 
       <div className="mb-2 text-light">
         <strong><u>Synchronization:</u></strong> {details.sync}
